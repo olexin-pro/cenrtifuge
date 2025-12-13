@@ -6,6 +6,7 @@ use Laravel\Octane\ApplicationFactory;
 use OlexinPro\Cenrtifuge\Contracts\RequestHandler;
 use Psr\Log\LoggerInterface;
 use RoadRunner\Centrifugo\CentrifugoWorker as RRCentrifugoWorker;
+use RoadRunner\Centrifugo\Request\Invalid;
 use RoadRunner\Centrifugo\Request\RequestFactory;
 use RoadRunner\Centrifugo\Request\RequestInterface;
 use Spiral\RoadRunner\Worker as RoadRunnerWorker;
@@ -46,9 +47,7 @@ final class CentrifugoWorker implements WorkerInterface
                     'type' => get_class($request),
                 ]);
 
-                if (method_exists($request, 'error')) {
-                    $request->error($e->getCode() ?: 500, $e->getMessage());
-                }
+                $this->respondWithError($request, $e);
             }
         }
     }
@@ -58,21 +57,31 @@ final class CentrifugoWorker implements WorkerInterface
         array $handlers,
         LoggerInterface $logger
     ): void {
+        if ($request instanceof Invalid) {
+            return;
+        }
+
         $requestType = get_class($request);
         $handlerClass = $handlers[$requestType] ?? null;
 
         if (!$handlerClass) {
             $logger->warning('No handler registered', ['type' => $requestType]);
-
-            if (method_exists($request, 'error')) {
-                $request->error(400, 'Unsupported request type');
-            }
-
+            $this->respondWithError($request, new \RuntimeException('Unsupported request type'), 400);
             return;
         }
 
         /** @var RequestHandler $handler */
         $handler = $app->make($handlerClass);
         $handler->handle($request);
+    }
+
+    private function respondWithError(RequestInterface $request, \Throwable $e, ?int $code = null): void
+    {
+        if ($request instanceof Invalid) {
+            return;
+        }
+
+        $errorCode = $code ?? ($e->getCode() ?: 500);
+        $request->error($errorCode, $e->getMessage());
     }
 }

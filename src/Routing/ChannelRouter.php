@@ -54,6 +54,6 @@ final class ChannelRouter
     private function extractParameterNames(string $pattern): array
     {
         preg_match_all('/\{(\w+)\}/', $pattern, $matches);
-        return $matches[1] ?? [];
+        return $matches[1];
     }
 }
