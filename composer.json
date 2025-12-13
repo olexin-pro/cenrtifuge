@@ -1,0 +1,36 @@
+{
+    "name": "olexin-pro/cenrtifuge",
+    "description": "centrifuge for roadrunner laravel-bridge",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "OlexinPro\\Centrifuge\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.3",
+        "roadrunner-php/laravel-bridge": "^6.0",
+        "laravel/framework": "^10.0|^11.0|^12.0",
+        "roadrunner-php/centrifugo": "^2.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.6",
+        "phpunit/phpunit": "^12.4.2",
+        "phpstan/phpstan": "^2.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OlexinPro\\Centrifuge\\CentrifugeServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "aizharyk",
+            "email": "aizharolexin@yandex.kz"
+        }
+    ],
+    "minimum-stability": "stable"
+}
