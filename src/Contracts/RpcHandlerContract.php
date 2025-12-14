@@ -7,7 +7,7 @@ namespace OlexinPro\Centrifuge\Contracts;
 use Illuminate\Contracts\Auth\Authenticatable;
 use RoadRunner\Centrifugo\Request\RPC;
 
-interface RpcHandler
+interface RpcHandlerContract
 {
     /**
      * Handle RPC request
