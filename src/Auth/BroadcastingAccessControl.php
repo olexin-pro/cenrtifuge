@@ -27,21 +27,14 @@ final readonly class BroadcastingAccessControl implements ChannelAccessControl
 
     private function checkAccess(?Authenticatable $user, string $channel): bool
     {
-        $channelName = $this->normalizeChannelName($channel);
-
         try {
-            $request = $this->createAuthRequest($user, $channelName);
+            $request = $this->createAuthRequest($user, $channel);
             $result = $this->broadcast->auth($request);
 
             return $result !== false;
         } catch (\Throwable) {
             return false;
         }
-    }
-
-    private function normalizeChannelName(string $channel): string
-    {
-        return preg_replace('/^(private-|presence-)/', '', $channel);
     }
 
     private function createAuthRequest(?Authenticatable $user, string $channelName): Request
