@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use OlexinPro\Cenrtifuge\Auth\BroadcastingAccessControl;
 use OlexinPro\Cenrtifuge\Auth\MultiGuardAuthenticator;
+use OlexinPro\Centrifuge\Auth\CentrifugoAuthenticator;
 use OlexinPro\Centrifuge\Auth\RoutingAccessControl;
 use OlexinPro\Centrifuge\Contracts\Authenticator;
 use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
@@ -54,9 +55,8 @@ final class CentrifugeServiceProvider extends ServiceProvider
     private function registerAuthenticator(): void
     {
         $this->app->singleton(Authenticator::class, function (Application $app) {
-            return new MultiGuardAuthenticator(
-                auth: $app->make('auth'),
-                guards: $app->get('config')->get('centrifuge.guards', ['sanctum', 'session'])
+            return new CentrifugoAuthenticator(
+                config: $app->make('config'),
             );
         });
     }
