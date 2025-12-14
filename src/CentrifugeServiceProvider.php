@@ -78,6 +78,11 @@ final class CentrifugeServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws BindingResolutionException
+     */
     private function loadRoutes(): void
     {
         $this->loadRpcRoutes();

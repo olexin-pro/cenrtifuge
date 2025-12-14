@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use OlexinPro\Cenrtifuge\Routing\ChannelRouter;
+use OlexinPro\Centrifuge\Routing\ChannelRouter;
 
 /** @var ChannelRouter $centrifuge */
 

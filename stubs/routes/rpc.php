@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use OlexinPro\Cenrtifuge\Routing\RpcRouter;
+use OlexinPro\Centrifuge\Routing\RpcRouter;
 
 
 /** @var RpcRouter $rpc */
