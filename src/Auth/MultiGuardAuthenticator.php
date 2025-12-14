@@ -6,7 +6,7 @@ namespace OlexinPro\Cenrtifuge\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use OlexinPro\Cenrtifuge\Contracts\Authenticator;
+use OlexinPro\Centrifuge\Contracts\Authenticator;
 use RoadRunner\Centrifugo\Request\RequestInterface;
 
 final readonly class MultiGuardAuthenticator implements Authenticator

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OlexinPro\Cenrtifuge\Contracts;
+namespace OlexinPro\Centrifuge\Contracts;
 
 use RoadRunner\Centrifugo\Request\RequestInterface;
 

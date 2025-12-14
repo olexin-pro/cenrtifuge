@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace OlexinPro\Cenrtifuge\Auth;
+namespace OlexinPro\Centrifuge\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use OlexinPro\Cenrtifuge\Contracts\ChannelAccessControl;
-use OlexinPro\Cenrtifuge\Routing\ChannelRouter;
+use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
+use OlexinPro\Centrifuge\Routing\ChannelRouter;
 
 final readonly class RoutingAccessControl implements ChannelAccessControl
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OlexinPro\Cenrtifuge\Contracts;
+namespace OlexinPro\Centrifuge\Contracts;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use RoadRunner\Centrifugo\Request\RequestInterface;

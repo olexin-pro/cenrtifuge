@@ -7,7 +7,7 @@ namespace OlexinPro\Cenrtifuge\Auth;
 use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
-use OlexinPro\Cenrtifuge\Contracts\ChannelAccessControl;
+use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
 
 final readonly class BroadcastingAccessControl implements ChannelAccessControl
 {

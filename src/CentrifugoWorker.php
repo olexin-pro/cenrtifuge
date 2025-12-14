@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+namespace OlexinPro\Centrifuge;
+
 use Laravel\Octane\ApplicationFactory;
-use OlexinPro\Cenrtifuge\Contracts\RequestHandler;
+use OlexinPro\Centrifuge\Contracts\RequestHandler;
 use Psr\Log\LoggerInterface;
 use RoadRunner\Centrifugo\CentrifugoWorker as RRCentrifugoWorker;
 use RoadRunner\Centrifugo\Request\Invalid;

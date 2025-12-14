@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
+namespace OlexinPro\Centrifuge;
+
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use OlexinPro\Cenrtifuge\Auth\BroadcastingAccessControl;
 use OlexinPro\Cenrtifuge\Auth\MultiGuardAuthenticator;
-use OlexinPro\Cenrtifuge\Auth\RoutingAccessControl;
-use OlexinPro\Cenrtifuge\Contracts\Authenticator;
-use OlexinPro\Cenrtifuge\Contracts\ChannelAccessControl;
-use OlexinPro\Cenrtifuge\Routing\ChannelRouter;
-use OlexinPro\Cenrtifuge\Routing\RpcRouter;
+use OlexinPro\Centrifuge\Auth\RoutingAccessControl;
+use OlexinPro\Centrifuge\Contracts\Authenticator;
+use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
+use OlexinPro\Centrifuge\Routing\ChannelRouter;
+use OlexinPro\Centrifuge\Routing\RpcRouter;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
