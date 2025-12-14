@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OlexinPro\Centrifuge\Handlers;
 
-use OlexinPro\Cenrtifuge\Contracts\Authenticator;
-use OlexinPro\Cenrtifuge\Contracts\RequestHandler;
-use OlexinPro\Cenrtifuge\Routing\RpcRouter;
+use OlexinPro\Centrifuge\Contracts\Authenticator;
+use OlexinPro\Centrifuge\Contracts\RequestHandler;
+use OlexinPro\Centrifuge\Routing\RpcRouter;
 use Psr\Log\LoggerInterface;
 use RoadRunner\Centrifugo\Payload\RPCResponse;
 use RoadRunner\Centrifugo\Request\RequestInterface;

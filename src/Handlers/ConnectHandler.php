@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OlexinPro\Cenrtifuge\Handlers;
+namespace OlexinPro\Centrifuge\Handlers;
 
 use OlexinPro\Centrifuge\Contracts\Authenticator;
 use OlexinPro\Centrifuge\Contracts\RequestHandler;

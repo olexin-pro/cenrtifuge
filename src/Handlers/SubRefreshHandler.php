@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OlexinPro\Centrifuge\Handlers;
 
-use OlexinPro\Cenrtifuge\Contracts\Authenticator;
-use OlexinPro\Cenrtifuge\Contracts\RequestHandler;
+use OlexinPro\Centrifuge\Contracts\Authenticator;
+use OlexinPro\Centrifuge\Contracts\RequestHandler;
 use Psr\Log\LoggerInterface;
 use RoadRunner\Centrifugo\Payload\SubRefreshResponse;
 use RoadRunner\Centrifugo\Request\RequestInterface;

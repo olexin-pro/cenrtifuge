@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use RoadRunner\Centrifugo\Request;
-use OlexinPro\Cenrtifuge\Handlers;
+use OlexinPro\Centrifuge\Handlers;
 
 return [
     /*
