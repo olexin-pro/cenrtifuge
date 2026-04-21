@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace OlexinPro\Centrifuge;
 
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use OlexinPro\Cenrtifuge\Auth\BroadcastingAccessControl;
 use OlexinPro\Cenrtifuge\Auth\MultiGuardAuthenticator;
+use OlexinPro\Centrifuge\Auth\CentrifugoAuth;
 use OlexinPro\Centrifuge\Auth\CentrifugoAuthenticator;
 use OlexinPro\Centrifuge\Auth\RoutingAccessControl;
 use OlexinPro\Centrifuge\Contracts\Authenticator;
+use OlexinPro\Centrifuge\Contracts\CentrifugoApiInterface;
+use OlexinPro\Centrifuge\Contracts\CentrifugoTransportInterface;
 use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
 use OlexinPro\Centrifuge\Routing\ChannelRouter;
 use OlexinPro\Centrifuge\Routing\RpcRouter;
+use OlexinPro\Centrifuge\Transport\GrpcTransport;
+use OlexinPro\Centrifuge\Transport\HttpTransport;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -27,6 +33,12 @@ final class CentrifugeServiceProvider extends ServiceProvider
             'centrifuge'
         );
 
+        $this->app->singleton(CentrifugoAuth::class, function (Application $app) {
+            return new CentrifugoAuth($app->make('config')->get('centrifuge.hmac_token'));
+        });
+
+        $this->registerTransport();
+        $this->registerApi();
         $this->registerRouters();
         $this->registerAuthenticator();
         $this->registerAccessControl();
@@ -44,6 +56,40 @@ final class CentrifugeServiceProvider extends ServiceProvider
         ], 'centrifuge-routes');
 
         $this->loadRoutes();
+    }
+
+    private function registerTransport(): void
+    {
+        $this->app->singleton(CentrifugoTransportInterface::class, function (Application $app) {
+            $config = $app->make('config');
+            $transport = $config->get('centrifuge.transport', 'http');
+
+            return match ($transport) {
+                'grpc'  => new GrpcTransport(),
+                default => new HttpTransport(
+                    http: new GuzzleClient([
+                        'base_uri' => $config->get('centrifuge.api_url', 'http://localhost:8000'),
+                        'headers'  => [
+                            'X-API-Key'    => $config->get('centrifuge.api_key', ''),
+                            'Content-Type' => 'application/json',
+                        ],
+                        'timeout' => (float) $config->get('centrifuge.timeout', 3),
+                    ]),
+                ),
+            };
+        });
+    }
+
+    private function registerApi(): void
+    {
+        $this->app->singleton(CentrifugoApiInterface::class, function (Application $app) {
+            return new CentrifugoApi(
+                transport: $app->make(CentrifugoTransportInterface::class),
+            );
+        });
+
+        // Bind concrete class too so it can be injected directly if needed
+        $this->app->alias(CentrifugoApiInterface::class, CentrifugoApi::class);
     }
 
     private function registerRouters(): void

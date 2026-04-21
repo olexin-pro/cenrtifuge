@@ -6,6 +6,42 @@ use RoadRunner\Centrifugo\Request;
 use OlexinPro\Centrifuge\Handlers;
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Centrifugo API Configuration
+    |--------------------------------------------------------------------------
+    |
+    | api_key:
+    | API key used to authenticate requests to the Centrifugo HTTP API.
+    |
+    | api_url:
+    | Base URL of the Centrifugo server.
+    |
+    | hmac_token:
+    | Secret key for HMAC signing (JWT connection tokens).
+    |
+    | timeout:
+    | HTTP request timeout in seconds (used by HttpTransport).
+    |
+    */
+    'api_key'    => env('CENTRIFUGE_API_KEY', ''),
+    'api_url'    => env('CENTRIFUGE_API_URL', 'http://localhost:8000'),
+    'hmac_token' => env('CENTRIFUGE_HMAC_TOKEN', ''),
+    'timeout'    => env('CENTRIFUGE_TIMEOUT', 3),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Transport
+    |--------------------------------------------------------------------------
+    |
+    | Determines how the package communicates with the Centrifugo server.
+    |
+    | Supported: "http", "grpc"
+    |
+    */
+    'transport' => env('CENTRIFUGE_TRANSPORT', 'http'),
+
     /*
     |--------------------------------------------------------------------------
     | Use Broadcasting Channels
@@ -55,11 +91,11 @@ return [
     |
     */
     'handlers' => [
-        Request\Connect::class => Handlers\ConnectHandler::class,
+        Request\Connect::class   => Handlers\ConnectHandler::class,
         Request\Subscribe::class => Handlers\SubscribeHandler::class,
-        Request\Publish::class => Handlers\PublishHandler::class,
-        Request\Refresh::class => Handlers\RefreshHandler::class,
+        Request\Publish::class   => Handlers\PublishHandler::class,
+        Request\Refresh::class   => Handlers\RefreshHandler::class,
         Request\SubRefresh::class => Handlers\SubRefreshHandler::class,
-        Request\RPC::class => Handlers\RpcHandler::class,
+        Request\RPC::class       => Handlers\RpcHandler::class,
     ],
 ];

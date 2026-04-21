@@ -37,6 +37,76 @@ Config file: `config/centrifuge.php`
 | `channels.routes_path` | `routes/centrifuge.php` | Path to channel routes file |
 | `handlers` | see below | Map of Centrifugo request types to handler classes |
 
+### Example Centrifuge Configuration
+
+```json
+{
+  "client": {
+    "token": {
+      "hmac_secret_key": "hmac_secret_key"
+    },
+    "allowed_origins": ["*"],
+    "proxy": {
+      "connect": {
+        "enabled": true,
+        "endpoint": "grpc://host.docker.internal:10001",
+        "timeout": "10s"
+      },
+      "refresh": {
+        "enabled": true,
+        "endpoint": "grpc://host.docker.internal:10001",
+        "timeout": "10s"
+      }
+    }
+  },
+  "channel": {
+    "proxy": {
+      "subscribe": {
+        "endpoint": "grpc://host.docker.internal:10001",
+        "timeout": "10s"
+      },
+      "publish": {
+        "endpoint": "grpc://host.docker.internal:10001",
+        "timeout": "10s"
+      },
+      "sub_refresh": {
+        "endpoint": "grpc://host.docker.internal:10001",
+        "timeout": "1s"
+      }
+    },
+    "without_namespace": {
+      "allow_subscribe_for_client": true,
+      "allow_publish_for_subscriber": true,
+      "subscribe_proxy_enabled": true,
+      "publish_proxy_enabled": true,
+      "sub_refresh_proxy_enabled": true
+    }
+  },
+  "rpc": {
+    "proxy": {
+      "endpoint": "grpc://host.docker.internal:10001",
+      "timeout": "10s"
+    },
+    "without_namespace": {
+      "proxy_enabled": true
+    }
+  },
+  "admin": {
+    "enabled": true,
+    "password": "password",
+    "secret": "secret"
+  },
+  "http_api": {
+    "key": "api_key"
+  },
+  "grpc_api": {
+    "enabled": true
+  }
+}
+
+```
+
+
 ### Environment variables
 
 ```env
