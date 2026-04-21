@@ -21,7 +21,7 @@ final readonly class HttpTransport implements CentrifugoTransportInterface
     public function send(string $method, array $params): array
     {
         try {
-            $response = $this->http->post("/api/{$method}", [
+            $response = $this->http->request('POST', "/api/{$method}", [
                 'json' => $params,
             ]);
         } catch (GuzzleException $e) {

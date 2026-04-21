@@ -98,7 +98,7 @@ final readonly class MultiGuardAuthenticator implements Authenticator
             return null;
         }
 
-        $userModel = $this->config->get('auth.providers.users.model', \App\Models\User::class);
+        $userModel = $this->config->get('auth.providers.users.model', 'App\\Models\\User');
 
         if (!class_exists($userModel)) {
             return null;
