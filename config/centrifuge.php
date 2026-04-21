@@ -37,10 +37,23 @@ return [
     |
     | Determines how the package communicates with the Centrifugo server.
     |
-    | Supported: "http", "grpc"
+    | Supported: "http", "rpc"
+    |
+    | "rpc" uses RoadRunner's internal Goridge RPC — no extra dependencies
+    | required when running under roadrunner-php/laravel-bridge.
     |
     */
     'transport' => env('CENTRIFUGE_TRANSPORT', 'http'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | RoadRunner RPC Address
+    |--------------------------------------------------------------------------
+    |
+    | Address of the RoadRunner RPC server used by the "rpc" transport.
+    |
+    */
+    'rpc_address' => env('RR_RPC', 'tcp://127.0.0.1:6001'),
 
     /*
     |--------------------------------------------------------------------------

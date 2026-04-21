@@ -19,8 +19,8 @@ use OlexinPro\Centrifuge\Contracts\CentrifugoTransportInterface;
 use OlexinPro\Centrifuge\Contracts\ChannelAccessControl;
 use OlexinPro\Centrifuge\Routing\ChannelRouter;
 use OlexinPro\Centrifuge\Routing\RpcRouter;
-use OlexinPro\Centrifuge\Transport\GrpcTransport;
 use OlexinPro\Centrifuge\Transport\HttpTransport;
+use OlexinPro\Centrifuge\Transport\RpcTransport;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -65,7 +65,13 @@ final class CentrifugeServiceProvider extends ServiceProvider
             $transport = $config->get('centrifuge.transport', 'http');
 
             return match ($transport) {
-                'grpc'  => new GrpcTransport(),
+                'rpc'   => new RpcTransport(
+                    api: new \RoadRunner\Centrifugo\RPCCentrifugoApi(
+                        \Spiral\Goridge\RPC\RPC::create(
+                            $config->get('centrifuge.rpc_address', 'tcp://127.0.0.1:6001'),
+                        ),
+                    ),
+                ),
                 default => new HttpTransport(
                     http: new GuzzleClient([
                         'base_uri' => $config->get('centrifuge.api_url', 'http://localhost:8000'),
